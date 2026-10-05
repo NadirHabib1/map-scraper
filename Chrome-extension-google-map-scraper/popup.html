@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maps Lead Scraper</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-left">
+      <img src="icons/icon48.png" alt="icon" class="header-icon" />
+      <span class="header-title">Maps Lead Scraper</span>
+    </div>
+    <div class="header-right">
+      <span id="count-badge" class="count-badge hidden">0</span>
+      <span id="status-dot" class="status-dot idle"></span>
+    </div>
+  </header>
+
+  <!-- ── Controls ────────────────────────────────────────────────────────── -->
+  <section class="controls">
+    <button id="btn-scrape" class="btn btn-scrape">&#9654; Start Scrape</button>
+    <button id="btn-export" class="btn btn-export" disabled>&#8595; Export CSV</button>
+    <button id="btn-clear"  class="btn btn-clear">&#215; Clear</button>
+  </section>
+
+  <!-- ── Status bar ──────────────────────────────────────────────────────── -->
+  <div class="status-bar">
+    <span id="status-text">Ready — open Google Maps and search for businesses.</span>
+  </div>
+
+  <!-- ── Progress bar ────────────────────────────────────────────────────── -->
+  <div class="progress-wrap hidden" id="progress-wrap">
+    <div class="progress-track">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <span id="scroll-counter" class="scroll-counter">Scrolling… (0)</span>
+  </div>
+
+  <!-- ── Filter row ──────────────────────────────────────────────────────── -->
+  <div class="filter-row hidden" id="filter-row">
+    <label for="filter-rating" class="filter-label">Min rating:</label>
+    <select id="filter-rating" class="filter-select">
+      <option value="0">All</option>
+      <option value="3">3+</option>
+      <option value="4">4+</option>
+      <option value="4.5">4.5+</option>
+    </select>
+    <span id="showing-count" class="showing-count">Showing 0 of 0</span>
+  </div>
+
+  <!-- ── Error message ───────────────────────────────────────────────────── -->
+  <div id="error-box" class="error-box hidden">
+    <strong>&#9888; Not on Google Maps</strong>
+    <p>Please navigate to <a href="https://www.google.com/maps" target="_blank">google.com/maps</a>, search for a business type, then click Start Scrape.</p>
+  </div>
+
+  <!-- ── Results table ───────────────────────────────────────────────────── -->
+  <div class="table-wrap" id="table-wrap">
+    <table class="results-table" id="results-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Rating</th>
+          <th>Reviews</th>
+          <th>Category</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Website</th>
+        </tr>
+      </thead>
+      <tbody id="results-tbody"></tbody>
+    </table>
+    <div id="empty-state" class="empty-state">
+      <p>No results yet.</p>
+      <p class="empty-hint">Go to Google Maps &#8594; Search &#8594; Click <strong>Start Scrape</strong></p>
+    </div>
+  </div>
+
+  <!-- ── Lead Bank bar ───────────────────────────────────────────────────── -->
+  <div class="bank-bar hidden" id="bank-bar">
+    <div class="bank-left">
+      <span class="bank-icon">&#128200;</span>
+      <span class="bank-label">Lead Bank</span>
+      <span id="bank-count" class="bank-count">0 / 1000</span>
+    </div>
+    <div class="bank-actions">
+      <button id="btn-bank-export" class="btn btn-bank-export" disabled>&#8595; Export All</button>
+      <button id="btn-bank-clear"  class="btn btn-bank-clear">&#128465; Clear Bank</button>
+    </div>
+  </div>
+
+  <!-- ── Toast ───────────────────────────────────────────────────────────── -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- ── Footer ──────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <span id="last-scraped" class="last-scraped"></span>
+    <span class="footer-note">Only scrapes publicly visible data</span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
